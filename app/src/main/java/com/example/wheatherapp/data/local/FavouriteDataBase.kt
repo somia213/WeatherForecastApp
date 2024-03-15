@@ -1,4 +1,4 @@
-package com.example.wheatherapp.local
+package com.example.wheatherapp.data.local
 
 import android.content.Context
 import androidx.room.Database
@@ -10,7 +10,7 @@ import androidx.room.TypeConverters
 @TypeConverters(Converter::class)
 // when change in your Entity(table) -> change version to prevent conflict occurrence
 abstract class FavouriteDataBase :RoomDatabase(){
-     abstract fun favouriteDao():FavouriteDao
+     abstract fun favouriteDao(): FavouriteDao
 
      companion object {
           @Volatile

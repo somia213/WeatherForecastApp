@@ -1,9 +1,11 @@
-package com.example.wheatherapp.models
+package com.example.wheatherapp.data.models
 
 import com.google.gson.annotations.SerializedName
 
 
 data class WeatherResponse(
+    // used SerializedName -> write name of api comp in SerializedName and
+    // named property as i like
     @SerializedName("city")
     val city: City?,
     @SerializedName("cnt")

@@ -1,4 +1,4 @@
-package com.example.wheatherapp.remote
+package com.example.wheatherapp.data.remote
 
 import retrofit2.Retrofit
 import com.example.wheatherapp.Constants

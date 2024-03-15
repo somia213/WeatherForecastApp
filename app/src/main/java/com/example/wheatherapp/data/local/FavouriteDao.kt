@@ -1,4 +1,4 @@
-package com.example.wheatherapp.local
+package com.example.wheatherapp.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -14,7 +14,7 @@ interface FavouriteDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavourites(favourite:FavouriteEntity)
+    suspend fun insertFavourites(favourite: FavouriteEntity)
 
     @Delete
     suspend fun deleteFavourite(favourite: FavouriteEntity)
