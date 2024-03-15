@@ -7,13 +7,13 @@ data class WeatherResponse(
     // used SerializedName -> write name of api comp in SerializedName and
     // named property as i like
     @SerializedName("city")
-    val city: City?,
+    val city: City?= null,
     @SerializedName("cnt")
-    val cnt: Int?,
+    val cnt: Int?= null,
     @SerializedName("cod")
-    val cod: String?,
+    val cod: String?= null,
     @SerializedName("list")
-    val list: List<ListResponse>?,
+    val list: List<ListResponse> = emptyList(),
     @SerializedName("message")
-    val message: Int?
+    val message: Int?= null
 )
