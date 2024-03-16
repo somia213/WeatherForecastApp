@@ -1,4 +1,4 @@
-package com.example.wheatherapp.ui.home
+package com.example.wheatherapp.ui.home.viewmodel
 
 import Repository
 import androidx.lifecycle.LiveData

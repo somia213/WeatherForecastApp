@@ -1,17 +1,16 @@
-package com.example.wheatherapp.ui.home
+package com.example.wheatherapp.ui.home.view
 
 import Repository
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.example.wheatherapp.R
-import com.example.wheatherapp.databinding.FragmentHomeBinding
+import com.example.wheatherapp.ui.home.viewmodel.HomeViewModel
+import com.example.wheatherapp.ui.home.viewmodel.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
 

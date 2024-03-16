@@ -1,9 +1,8 @@
-package com.example.wheatherapp.ui.home
+package com.example.wheatherapp.ui.home.viewmodel
 
 import Repository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.wheatherapp.ui.favourite.FavouriteViewModel
 import java.lang.IllegalArgumentException
 
 class HomeViewModelFactory(private val repository: Repository):ViewModelProvider.Factory {

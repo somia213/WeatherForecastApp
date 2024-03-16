@@ -1,11 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WheatherApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
-    <string name="title_favourite">Favourite</string>
-    <string name="title_setting">Settings</string>
     <string name="twenty_four_hour_forecast">24-hour forecast</string>
     <string name="seven_days_forecast">7-days forecast</string>
     <string name="pressure">Pressure</string>
