@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+<!--    get location with less details-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--    get location with more details-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"

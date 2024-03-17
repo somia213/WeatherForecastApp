@@ -1,6 +1,7 @@
 package com.example.wheatherapp.ui.home.view
 
 import Repository
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +36,9 @@ class HomeFragment : Fragment() {
         viewModel.getWeatherDetails(30.61554342119405, 32.27797547385768)
 
         viewModel.weatherDetails.observe(viewLifecycleOwner){weather ->
-            Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }
