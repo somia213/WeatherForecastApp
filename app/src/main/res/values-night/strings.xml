@@ -17,4 +17,6 @@
     <string name="uv_icon_description">uv icon description</string>
     <string name="icon_day_description">Icon day description</string>
     <string name="icon_time_description">Icon time description</string>
+    <string name="currentLocation">Current Location</string>
+    <string name="Map">Map</string>
 </resources>

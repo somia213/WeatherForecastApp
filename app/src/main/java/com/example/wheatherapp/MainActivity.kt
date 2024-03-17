@@ -6,12 +6,15 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.location.LocationManagerCompat
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -22,13 +25,15 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import java.security.Permission
 const val PERMISSION_REQUEST_CODE = 55
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,NavController.OnDestinationChangedListener {
 
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
 
     // Testing Using Repository
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navView: BottomNavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +41,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        navView = binding.navView
 
-        // we can take location by fusedLocationProvider --> used gms-location services library (gradle)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // listen to any change in nav graph
+        navController.addOnDestinationChangedListener(this)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -52,84 +58,24 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-        // Check Location
-        if (checkPermission()) {
-            if (isEnabledLocation()) {
-              //  Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
-                getLastLocation()
-              }else{
-                Toast.makeText(this, "you should enabled location", Toast.LENGTH_SHORT).show()
-            }
-        }
-              //  Toast.makeText(this,"Permission Not granted",Toast.LENGTH_SHORT).show()
-                     requestPermission()
-
+//*************************************************************
     }
-
-
-    // Correct method after revision
-    fun checkPermission(): Boolean {
-        val fineLocation = ActivityCompat.checkSelfPermission(
-            this,
-            android.Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-        val coarseLocation = ActivityCompat.checkSelfPermission(
-            this,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-        return fineLocation && coarseLocation
-    }
-
-    // Correct method after revision
-    fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            this, listOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            ).toTypedArray()
-            , PERMISSION_REQUEST_CODE
-        )
-    }
-
-    // Correct method after revision
-
-    // Generated override methods
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+   // save cast -> as?
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            // Toast.makeText(this,"we can access your location",Toast.LENGTH_SHORT).show()
-                getLastLocation()
-        } else {
-            Toast.makeText(
-                this,
-                "Sorry you should accept permission to use App",
-                Toast.LENGTH_SHORT
-            ).show()
+        when(destination.id){
+            R.id.locationFragment , R.id.mapFragment -> {
+                supportActionBar?.hide()
+                navView.visibility= View.GONE
+            }
+            else->{
+                supportActionBar?.show()
+                navView.visibility= View.VISIBLE
+            }
         }
     }
 
-    @SuppressLint("MissingPermission")
-    fun getLastLocation() {
-        fusedLocationProviderClient
-            .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-            .addOnSuccessListener { location ->
-                Toast.makeText(
-                    this,
-                    "${location.latitude} and ${location.longitude}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-    }
-
-    fun isEnabledLocation():Boolean{
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return LocationManagerCompat.isLocationEnabled(locationManager)
-    }
 }

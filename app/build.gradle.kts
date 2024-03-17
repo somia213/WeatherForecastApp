@@ -36,7 +36,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
+
 }
 
 dependencies {
@@ -80,4 +82,12 @@ dependencies {
 
     //Location
     implementation("com.google.android.gms:play-services-location:21.1.0")
+
+    // Google MAPS
+    implementation ("com.google.maps.android:maps-compose:2.11.0")
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.maps.android:maps-compose-utils:2.11.0")
+    implementation ("com.google.maps.android:maps-compose-widgets:2.10.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.google.android.libraries.places:places:3.0.0")
 }

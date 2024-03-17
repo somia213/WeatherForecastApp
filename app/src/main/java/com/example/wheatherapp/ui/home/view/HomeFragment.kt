@@ -7,13 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.wheatherapp.R
+import com.example.wheatherapp.data.local.cash.getSettingsUserLocation
+import com.example.wheatherapp.data.models.City
+import com.example.wheatherapp.data.models.WeatherResponse
+import com.example.wheatherapp.databinding.FragmentHomeBinding
 import com.example.wheatherapp.ui.home.viewmodel.HomeViewModel
 import com.example.wheatherapp.ui.home.viewmodel.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
+
+    // view binding of home xml
+    private lateinit var binding: FragmentHomeBinding
+
 
     lateinit var viewModel : HomeViewModel
     override fun onCreateView(
@@ -21,8 +30,15 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home,container,false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?,
+//    ): View {
+//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +49,16 @@ class HomeFragment : Fragment() {
         //you ensure that your ViewModel is scoped correctly to the Lifecycle of the associated component
         viewModel = ViewModelProvider(requireActivity(),viewModelFactory).get(HomeViewModel::class.java)
 
-        viewModel.getWeatherDetails(30.61554342119405, 32.27797547385768)
+        val latLang = requireContext().getSettingsUserLocation()
+        viewModel.getWeatherDetails(latLang.latitude,latLang.longitude)
 
         viewModel.weatherDetails.observe(viewLifecycleOwner){weather ->
-//            Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
+            binding.textCity.text = weather?.city?.name
         }
     }
+
+
 
 
 }
