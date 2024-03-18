@@ -9,7 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.wheatherapp.R
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class FavouriteFragment : Fragment() {
@@ -31,8 +34,10 @@ class FavouriteFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(),viewModelFactory).get(FavouriteViewModel::class.java)
 
         viewModel .getFavouriteList()
-        viewModel.favouriteList.observe(viewLifecycleOwner){favouriteList ->
-            Toast.makeText(requireContext(),"length of data is :${favouriteList.size} ",Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            viewModel.favouriteList.collect{favouriteList ->
+                Toast.makeText(requireContext(),"length of data is :${favouriteList.size} ",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

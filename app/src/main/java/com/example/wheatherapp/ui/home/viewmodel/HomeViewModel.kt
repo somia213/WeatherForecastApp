@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wheatherapp.data.local.FavouriteEntity
 import com.example.wheatherapp.data.models.WeatherResponse
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -16,8 +18,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val repository: Repository):ViewModel() {
 
     // make weatherDetails private to prevent any class from update (change in ) data
-   private val _weatherDetails = MutableLiveData<WeatherResponse>()
-    val weatherDetails: LiveData<WeatherResponse>
+   private val _weatherDetails = MutableStateFlow<WeatherResponse>(WeatherResponse())
+    val weatherDetails: StateFlow<WeatherResponse>
         get() = _weatherDetails
 
     // Data Came (Receive Data)

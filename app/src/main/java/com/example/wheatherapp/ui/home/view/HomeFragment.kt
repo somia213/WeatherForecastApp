@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.wheatherapp.R
 import com.example.wheatherapp.data.local.cash.getSettingsUserLocation
 import com.example.wheatherapp.data.models.City
@@ -17,6 +18,8 @@ import com.example.wheatherapp.data.models.WeatherResponse
 import com.example.wheatherapp.databinding.FragmentHomeBinding
 import com.example.wheatherapp.ui.home.viewmodel.HomeViewModel
 import com.example.wheatherapp.ui.home.viewmodel.HomeViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -52,9 +55,11 @@ class HomeFragment : Fragment() {
         val latLang = requireContext().getSettingsUserLocation()
         viewModel.getWeatherDetails(latLang.latitude,latLang.longitude)
 
-        viewModel.weatherDetails.observe(viewLifecycleOwner){weather ->
-            Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
-            binding.textCity.text = weather?.city?.name
+        lifecycleScope.launch {
+            viewModel.weatherDetails.collect{weather ->
+                Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
+                binding.textCity.text = weather?.city?.name
+            }
         }
     }
 

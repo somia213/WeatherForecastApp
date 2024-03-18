@@ -6,14 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wheatherapp.data.local.FavouriteEntity
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FavouriteViewModel(private val repository: Repository):ViewModel() {
 
-    private val _favouriteList = MutableLiveData<List<FavouriteEntity>>()
-    val favouriteList : LiveData<List<FavouriteEntity>>
+    private val _favouriteList = MutableStateFlow<List<FavouriteEntity>>(emptyList())
+    val favouriteList : StateFlow<List<FavouriteEntity>>
         get() = _favouriteList
 
     fun getFavouriteList(){
