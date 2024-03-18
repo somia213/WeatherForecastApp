@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.wheatherapp.data.HomeResponseState
 import com.example.wheatherapp.data.local.FavouriteEntity
 import com.example.wheatherapp.data.models.WeatherResponse
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +19,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val repository: Repository):ViewModel() {
 
     // make weatherDetails private to prevent any class from update (change in ) data
-   private val _weatherDetails = MutableStateFlow<WeatherResponse>(WeatherResponse())
-    val weatherDetails: StateFlow<WeatherResponse>
+   private val _weatherDetails = MutableStateFlow<HomeResponseState<WeatherResponse>>(HomeResponseState.OnLoading())
+    val weatherDetails: StateFlow<HomeResponseState<WeatherResponse>>
         get() = _weatherDetails
 
     // Data Came (Receive Data)
@@ -27,10 +28,10 @@ class HomeViewModel(private val repository: Repository):ViewModel() {
                            longitude:Double){
         viewModelScope.launch {
              repository.getWeatherDetails(latitude,longitude)
-                 .catch {  } // catch errors
+                 .catch { _weatherDetails.value = HomeResponseState.OnError(it.message.toString()) } // catch errors
                  .collect{
                      repository.insertFavourites(FavouriteEntity(weather = it))
-                     _weatherDetails.value = it
+                     _weatherDetails.value = HomeResponseState.OnSuccess(it)
                  }
         }
     }

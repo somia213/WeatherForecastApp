@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.wheatherapp.R
+import com.example.wheatherapp.data.HomeResponseState
 import com.example.wheatherapp.data.local.cash.getSettingsUserLocation
 import com.example.wheatherapp.data.models.City
 import com.example.wheatherapp.data.models.WeatherResponse
@@ -56,9 +57,19 @@ class HomeFragment : Fragment() {
         viewModel.getWeatherDetails(latLang.latitude,latLang.longitude)
 
         lifecycleScope.launch {
-            viewModel.weatherDetails.collect{weather ->
-                Toast.makeText(requireContext(),weather.toString(),Toast.LENGTH_SHORT).show()
-                binding.textCity.text = weather?.city?.name
+            viewModel.weatherDetails.collect{state ->
+                when(state){
+                    is HomeResponseState.OnSuccess->{
+                        Toast.makeText(requireContext(),state.data.toString(),Toast.LENGTH_SHORT).show()
+                        binding.textCity.text = state.data.city?.name
+                    }
+                    is HomeResponseState.OnError->{
+                        Toast.makeText(requireContext(),state.message,Toast.LENGTH_SHORT).show()
+                    }
+                    is HomeResponseState.OnLoading->{
+                        Toast.makeText(requireContext(),"Loading........",Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
