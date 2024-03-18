@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wheatherapp.data.local.FavouriteEntity
 import com.example.wheatherapp.data.models.WeatherResponse
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 // I send Repository not context bec : depend on MVVM View should not be in ViewModel
@@ -22,9 +24,12 @@ class HomeViewModel(private val repository: Repository):ViewModel() {
     fun getWeatherDetails( latitude:Double,
                            longitude:Double){
         viewModelScope.launch {
-            val data = repository.getWeatherDetails(latitude,longitude)
-            repository.insertFavourites(FavouriteEntity(weather = data))
-            _weatherDetails.value = data
+             repository.getWeatherDetails(latitude,longitude)
+                 .catch {  } // catch errors
+                 .collect{
+                     repository.insertFavourites(FavouriteEntity(weather = it))
+                     _weatherDetails.value = it
+                 }
         }
     }
 }

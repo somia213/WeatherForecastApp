@@ -4,6 +4,8 @@ import com.example.wheatherapp.data.local.FavouriteEntity
 import com.example.wheatherapp.data.models.WeatherResponse
 import com.example.wheatherapp.data.remote.ApiCalls
 import com.example.wheatherapp.data.remote.RetrofitInstance
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class Repository( context: Context) {
 
@@ -16,7 +18,7 @@ class Repository( context: Context) {
     }
 
     // Local
-    suspend fun getFavourites(): List<FavouriteEntity> {
+     fun getFavourites(): Flow<List<FavouriteEntity>> {
         return room.favouriteDao().getFavourites()
     }
 
@@ -29,17 +31,18 @@ class Repository( context: Context) {
     }
 
     // Remote
-    suspend fun getWeatherDetails(
+     fun getWeatherDetails(
         latitude: Double,
         longitude: Double
-    ): WeatherResponse {
+    )= flow {
         val response = network.getWeatherDetails(
             latitude = latitude,
             longitude = longitude
         )
         if (response.isSuccessful) {
-            return response.body() ?: WeatherResponse()
+            emit(response.body() ?: WeatherResponse())
+        }else{
+            emit(WeatherResponse())
         }
-        return WeatherResponse()
     }
 }
