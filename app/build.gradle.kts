@@ -90,4 +90,7 @@ dependencies {
     implementation ("com.google.maps.android:maps-compose-widgets:2.10.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.google.android.libraries.places:places:3.0.0")
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }

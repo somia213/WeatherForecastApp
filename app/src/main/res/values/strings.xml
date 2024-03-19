@@ -25,4 +25,6 @@
     <string name="icon_time_description">Icon time description</string>
     <string name="currentLocation">GPS</string>
     <string name="Map">Map</string>
+    <string name="api_kay">"4a059725f93489b95183bbcb8c6829b9"</string>
+    <string name="favPlace">Add to Favourite</string>
 </resources>
