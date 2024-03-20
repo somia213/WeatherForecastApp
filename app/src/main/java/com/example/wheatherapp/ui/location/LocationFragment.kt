@@ -1,15 +1,18 @@
 package com.example.wheatherapp.ui.location
 
 import Repository
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
@@ -53,6 +56,23 @@ class LocationFragment : Fragment() {
 
         binding.currentLocationBtn.setOnClickListener{
 
+
+//            val requestMultiplePermissions = registerForActivityResult(
+//                ActivityResultContracts.RequestMultiplePermissions()
+//            ) { permissions ->
+//                permissions.entries.forEach {
+//                    Log.d("DEBUG", "${it.key} = ${it.value}")
+//                    getLastLocation()
+//                }
+//            }
+//
+//            requestMultiplePermissions.launch(
+//                arrayOf(
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION
+//                )
+//            )
+
             // Check Location
             if (checkPermission()) {
                 if (isEnabledLocation()) {
@@ -64,6 +84,9 @@ class LocationFragment : Fragment() {
             }
             //  Toast.makeText(this,"Permission Not granted",Toast.LENGTH_SHORT).show()
             requestPermission()
+        }
+        binding.mapBtn.setOnClickListener{
+            findNavController().navigate(R.id.mapFragment)
         }
 
     }

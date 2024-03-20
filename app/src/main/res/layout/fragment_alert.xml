@@ -4,41 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
-    tools:context=".ui.favourite.FavouriteFragment">
+    tools:context="ui.alert.AlertFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favRecView"
+        android:id="@+id/alertRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/img"
         app:layout_constraintTop_toBottomOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/btn_add_alert"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="90dp"
         android:backgroundTint="@color/secondary"
         android:clickable="true"
-        android:contentDescription="@string/locationInMap"
+        android:contentDescription="@string/showAlertSetting"
         android:focusable="true"
-        android:src="@drawable/add_location"
+        android:src="@drawable/add_alert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/text_empty_List"
+        android:id="@+id/text_empty_alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/noFavYet"
+        android:text="@string/noAlert"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

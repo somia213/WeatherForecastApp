@@ -76,19 +76,19 @@ class HomeFragment : Fragment() {
                         binding.textTempDescription.text = state.data.list.get(0).weather?.get(0)?.description
                         binding.textPressure.text = state.data.list.get(0).main?.pressure.toString()
                         binding.textClouds.text=state.data.list.get(0).clouds.toString()
-                     //   binding.textWindSpeed.text = state.data.list.get(0).wind.toString()
+                        binding.textWindSpeed.text = state.data.list.get(0).wind?.speed.toString()
                         binding.textVisibility.text = state.data.list.get(0).visibility.toString()
                         binding.textHumidity.text = state.data.list.get(0).main?.humidity.toString()
 
                         // Day Adapter
                         adapterDaily = SevenDayAdapter(state.data.list)
                         binding.recyclerViewTempPerDay.adapter = adapterDaily
-                        binding.recyclerViewTempPerDay.layoutManager = LinearLayoutManager(requireContext())
+                       // binding.recyclerViewTempPerDay.layoutManager = LinearLayoutManager(requireContext())
 
                         // Hour Adapter
                         adapterHourly = HourlyAdapter(state.data.list)
                         binding.recyclerViewTempPerTime.adapter=adapterHourly
-                        binding.recyclerViewTempPerTime.layoutManager = LinearLayoutManager(requireContext())
+                       // binding.recyclerViewTempPerTime.layoutManager = LinearLayoutManager(requireContext())
 
                     }
                     is HomeResponseState.OnError->{

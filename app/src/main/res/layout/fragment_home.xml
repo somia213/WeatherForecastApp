@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="40dp"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,7 +17,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/img">
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/img"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/homeView"
@@ -166,7 +178,10 @@
                         app:layout_constraintEnd_toStartOf="@+id/guideline2"
                         app:layout_constraintStart_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/imageViewWindSpeed"
-                        tools:text="2.06 m/s" />
+                        tools:text="@tools:sample/lorem/random"
+                        android:lines="1"
+                        android:ems="5"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/textViewHumidity"
@@ -336,7 +351,9 @@
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:paddingStart="4dp"
+                    tools:listitem="@layout/time_temp_card"
                     android:paddingEnd="4dp"
+                    app:circularflow_radiusInDP="20dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -360,9 +377,12 @@
                     android:id="@+id/recycler_view_temp_per_day"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    tools:itemCount="2"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/textViewNextDays" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewNextDays"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:listitem="@layout/day_temp_card" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView

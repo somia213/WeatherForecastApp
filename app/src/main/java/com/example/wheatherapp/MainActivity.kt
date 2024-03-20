@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wheatherapp.databinding.ActivityMainBinding
 const val PERMISSION_REQUEST_CODE = 55
-class MainActivity : AppCompatActivity() ,NavController.OnDestinationChangedListener {
+class MainActivity : AppCompatActivity() ,NavController.OnDestinationChangedListener{
 
 
 

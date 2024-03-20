@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.wheatherapp.ui.notifications.NotificationsFragment"
+        android:name="com.example.wheatherapp.ui.alert.AlertFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_alert" />
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.wheatherapp.ui.location.LocationFragment"

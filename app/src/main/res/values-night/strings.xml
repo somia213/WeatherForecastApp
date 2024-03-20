@@ -20,4 +20,12 @@
     <string name="currentLocation">Current Location</string>
     <string name="Map">Map</string>
     <string name="favPlace">Add to Favourite</string>
+    <string name="flocation">"Your favourite Locations "</string>
+    <string name="flocation1">"Your Favourite Locations "</string>
+    <string name="noFavYet">No favourite yet</string>
+    <string name="locationInMap">Location You choose in map</string>
+    <string name="deleteFav">Delete your favourite location</string>
+    <string name="noAlert">No alert yet</string>
+    <string name="showAlertSetting">Show alert settings</string>
+    <string name="weatherIcon">Weather Icone For design</string>
 </resources>
