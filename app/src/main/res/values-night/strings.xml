@@ -36,4 +36,5 @@
     <string name="alertsetting">Alert Settings</string>
     <string name="Notification">Notification</string>
     <string name="alertDailog">Alert Dailog</string>
+    <string name="oh_btn">Ok</string>
 </resources>

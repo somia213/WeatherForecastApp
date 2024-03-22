@@ -13,14 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Database
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.example.wheatherapp.R
-import com.example.wheatherapp.data.local.FavouriteDataBase
-import com.example.wheatherapp.databinding.FragmentAlertBinding
 import com.example.wheatherapp.ui.alert.viewmodel.AlertViewModel
 import com.example.wheatherapp.ui.alert.viewmodel.AlertViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -51,11 +51,17 @@ class AlertFragment : Fragment() {
     ): View {
         view = inflater.inflate(R.layout.fragment_alert, container, false)
 
+
         recyclerView = view.findViewById(R.id.alertRecyclerView)
         floatingActionButton = view.findViewById(R.id.btn_add_alert)
 
+
         adapter = AlertAdapter(requireContext()) {
             viewModel.deleteAlert(it)
+
+            // Periodic worker
+            WorkManager.getInstance().cancelAllWorkByTag("${it.id}")
+
         }
 
         recyclerView.adapter = adapter
@@ -75,6 +81,13 @@ class AlertFragment : Fragment() {
 
         return view
     }
+
+//    val secondaryLayout = inflater.inflate(R.layout.secondary_layout, null)
+//    val notificationRadio: RadioButton = secondaryLayout.findViewById(R.id.radio_notification)
+
+
+////////////////////////////Error ////////////////////////////////////////
+
 
     private fun settingsManager(){
         // setting design and shared preference

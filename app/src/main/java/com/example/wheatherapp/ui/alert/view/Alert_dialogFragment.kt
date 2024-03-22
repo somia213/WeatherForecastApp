@@ -13,12 +13,18 @@ import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.wheatherapp.R
 import com.example.wheatherapp.convertDateToLong
 import com.example.wheatherapp.data.local.FavouriteDataBase
 import com.example.wheatherapp.data.models.AlertModel
 import com.example.wheatherapp.dayConverterToString
 import com.example.wheatherapp.timeConverterToString
+import com.example.wheatherapp.ui.alert.services.AlertPeriodicWorkManager
 import com.example.wheatherapp.ui.alert.viewmodel.AlertViewModel
 import com.example.wheatherapp.ui.alert.viewmodel.AlertViewModelFactory
 import kotlinx.coroutines.flow.collect
@@ -48,6 +54,31 @@ class Alert_dialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    private fun setPeriodWorkManger(id: Long) {
+
+        val data = Data.Builder()
+        data.putLong("id", id)
+
+        // can handle more than one constraint
+        val constraints = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+        val periodicWorkRequest = PeriodicWorkRequest.Builder(
+            AlertPeriodicWorkManager::class.java,
+            24, TimeUnit.HOURS
+        )
+            .setConstraints(constraints)
+            .setInputData(data.build())
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
+            "$id",
+            ExistingPeriodicWorkPolicy.REPLACE,
+            periodicWorkRequest
+        )
     }
 
     override fun onCreateView(
@@ -84,6 +115,8 @@ class Alert_dialogFragment : DialogFragment() {
         lifecycleScope.launch {
             viewModel.stateInsetAlert.collect{id ->
                 // Register Worker Here and send Id of alert
+
+                setPeriodWorkManger(id)
             }
         }
         return view

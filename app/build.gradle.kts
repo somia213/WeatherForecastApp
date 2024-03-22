@@ -91,6 +91,9 @@ dependencies {
 
     //glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //Work Manager
+    implementation ("androidx.work:work-runtime-ktx:2.8.0")
 }
 
 secrets {
