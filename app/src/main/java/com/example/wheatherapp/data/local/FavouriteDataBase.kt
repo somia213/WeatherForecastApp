@@ -5,12 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.wheatherapp.data.models.AlertModel
 
-@Database(entities = [FavouriteEntity::class], version = 1, exportSchema = false)
+@Database(entities = [FavouriteEntity::class , AlertModel::class], version = 2, exportSchema = false)
 @TypeConverters(Converter::class)
 // when change in your Entity(table) -> change version to prevent conflict occurrence
 abstract class FavouriteDataBase :RoomDatabase(){
      abstract fun favouriteDao(): FavouriteDao
+     abstract fun alertDao():AlertDao
 
      companion object {
           @Volatile

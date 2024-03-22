@@ -1,6 +1,7 @@
 import android.content.Context
 import com.example.wheatherapp.data.local.FavouriteDataBase
 import com.example.wheatherapp.data.local.FavouriteEntity
+import com.example.wheatherapp.data.models.AlertModel
 import com.example.wheatherapp.data.models.WeatherResponse
 import com.example.wheatherapp.data.remote.ApiCalls
 import com.example.wheatherapp.data.remote.RetrofitInstance
@@ -44,5 +45,22 @@ class Repository( context: Context) {
         }else{
             emit(WeatherResponse())
         }
+    }
+
+    fun getAlerts(): Flow<List<AlertModel>> {
+        return room.alertDao().getAlerts()
+    }
+
+    //****************************** put return ***************************************************//
+    suspend fun insertAlert(alert :AlertModel):Long {
+       return room.alertDao().insertAlert(alert)
+    }
+
+    suspend fun deleteAlert(id:Int) {
+        room.alertDao().deleteAlert(id)
+    }
+
+    fun getAlert(id:Int) : AlertModel{
+        return room.alertDao().getAlert(id)
     }
 }

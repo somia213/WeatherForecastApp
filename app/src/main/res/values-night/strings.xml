@@ -28,4 +28,12 @@
     <string name="noAlert">No alert yet</string>
     <string name="showAlertSetting">Show alert settings</string>
     <string name="weatherIcon">Weather Icone For design</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="deleteYourAlert">Delete your alert</string>
+    <string name="alertsetting">Alert Settings</string>
+    <string name="Notification">Notification</string>
+    <string name="alertDailog">Alert Dailog</string>
 </resources>
